@@ -18,6 +18,9 @@ const computerSpock = document.getElementById("computerSpock");
 
 const allGameIcons = document.querySelectorAll(".far");
 
+let computerChoice = '';
+
+
 
 //reset all selected icons:
 function resetAll() {
@@ -26,11 +29,54 @@ function resetAll() {
     })
 }
 
+//random computer choice:
+function randomComputerChoice() {
+    const computerChoices = ['rock', 'paper', 'scissors']
+    computerChoice = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+    console.log('computer choice: ', computerChoice);
+}
+
+//add computer styling and computer choice:
+function displayComputerChoice() {
+    switch (computerChoice) {
+        case "rock":
+            computerRock.classList.add("selected");
+            computerChoiceEl.textContent = " ---Rock";
+            break;
+        case "paper":
+            computerPaper.classList.add("selected");
+            computerChoiceEl.textContent = " ---Paper";
+            break;
+        case "scissors":
+            computerScissors.classList.add("selected");
+            computerChoiceEl.textContent = " ---Scissors";
+            break;
+        case "lizard":
+            computerLizard.classList.add("selected");
+            computerChoiceEl.textContent = " ---Lizard";
+            break;
+        case "spock":
+            computerSpock.classList.add("selected");
+            computerChoiceEl.textContent = " ---Spock";
+            break;
+        default:
+            break;
+    }
+}
+
+
+//call functions to process the turn
+function checkResult() {
+    resetAll();
+    randomComputerChoice();
+    displayComputerChoice();
+}
+
 
 // player choice and select class:
 function select(playerChoice) {
-    resetAll();
-    console.log(playerChoice)
+    checkResult();
+    console.log('player choice: ', playerChoice)
     switch (playerChoice) {
         case "rock":
             playerRock.classList.add("selected");
@@ -48,3 +94,6 @@ function select(playerChoice) {
             break;
     }
 }
+
+//computer random selection 
+
