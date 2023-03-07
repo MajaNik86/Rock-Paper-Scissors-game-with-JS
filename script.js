@@ -51,14 +51,6 @@ function displayComputerChoice() {
             computerScissors.classList.add("selected");
             computerChoiceEl.textContent = " ---Scissors";
             break;
-        case "lizard":
-            computerLizard.classList.add("selected");
-            computerChoiceEl.textContent = " ---Lizard";
-            break;
-        case "spock":
-            computerSpock.classList.add("selected");
-            computerChoiceEl.textContent = " ---Spock";
-            break;
         default:
             break;
     }
