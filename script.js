@@ -7,36 +7,36 @@ const resultText = document.getElementById("resultText");
 const playerRock = document.getElementById("playerRock");
 const playerPaper = document.getElementById("playerPaper");
 const playerScissors = document.getElementById("playerScissors");
-const playerLizard = document.getElementById("playerLizard");
-const playerSpock = document.getElementById("playerSpock");
+
 
 const computerRock = document.getElementById("computerRock");
 const computerPaper = document.getElementById("computerPaper");
 const computerScissors = document.getElementById("computerScissors");
-const computerLizard = document.getElementById("computerLizard");
-const computerSpock = document.getElementById("computerSpock");
+
 
 const allGameIcons = document.querySelectorAll(".far");
 
+const choices = {
+    rock: { name: "Rock", defeats: ["scissors"] },
+    paper: { name: "Paper", defeats: ["rock"] },
+    scissors: { name: "Scissors", defeats: ["paper"] },
+
+};
+
+let playerScoreNumber = 0;
+let computerScoreNumber = 0;
+
 let computerChoice = '';
 
-
-
-//reset all selected icons:
-function resetAll() {
-    allGameIcons.forEach((icon) => {
-        icon.classList.remove('selected')
-    })
-}
-
-//random computer choice:
-function randomComputerChoice() {
+//random computer choice
+function computerRandomChoice() {
     const computerChoices = ['rock', 'paper', 'scissors']
     computerChoice = computerChoices[Math.floor(Math.random() * computerChoices.length)];
     console.log('computer choice: ', computerChoice);
 }
 
-//add computer styling and computer choice:
+
+//Add selected styling and cumptore choise
 function displayComputerChoice() {
     switch (computerChoice) {
         case "rock":
@@ -57,18 +57,59 @@ function displayComputerChoice() {
 }
 
 
-//call functions to process the turn
-function checkResult() {
-    resetAll();
-    randomComputerChoice();
-    displayComputerChoice();
+
+//Reset all selected icons
+function resetSelectedIcons() {
+    allGameIcons.forEach((icon) => {
+        icon.classList.remove('selected');
+    });
 }
 
 
-// player choice and select class:
+
+//Reset Score  & playerChoice and computerChoice
+function resetAll() {
+    playerScoreNumber = 0;
+    computerScoreNumber = 0;
+    playerScoreEl.textContent = playerScoreNumber;
+    computerScoreEl.textContent = computerScoreNumber;
+    playerChoiceEl.textContent = '';
+    computerChoiceEl.textContent = ''
+    resultText.textContent = ''
+    resetSelectedIcons();
+}
+
+
+//Check result increase result, update text
+function updateScore(playerChoice) {
+    console.log(playerChoice, computerChoice);
+    if (playerChoice === computerChoice) {
+        resultText.textContent = "It's a tie."
+    } else {
+        const choice = choices[playerChoice];
+        if (choice.defeats.indexOf(computerChoice) > -1) {
+            resultText.textContent = 'You Won!';
+            playerScoreNumber++;
+            playerScoreEl.textContent = playerScoreNumber;
+        } else {
+            resultText.textContent = "You lost";
+            computerScoreNumber++;
+            computerScoreEl.textContent = computerScoreNumber;
+        }
+    }
+}
+
+//call function to process the turn
+function checkResult(playerChoice) {
+    resetSelectedIcons();
+    computerRandomChoice();
+    displayComputerChoice();
+    updateScore(playerChoice);
+
+}
+
 function select(playerChoice) {
-    checkResult();
-    console.log('player choice: ', playerChoice)
+    checkResult(playerChoice);
     switch (playerChoice) {
         case "rock":
             playerRock.classList.add("selected");
@@ -87,5 +128,5 @@ function select(playerChoice) {
     }
 }
 
-//computer random selection 
-
+//on startup set inital values
+resetAll();
