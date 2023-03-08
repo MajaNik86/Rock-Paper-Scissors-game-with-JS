@@ -32,7 +32,6 @@ let computerChoice = '';
 function computerRandomChoice() {
     const computerChoices = ['rock', 'paper', 'scissors']
     computerChoice = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-    console.log('computer choice: ', computerChoice);
 }
 
 
@@ -82,7 +81,6 @@ function resetAll() {
 
 //Check result increase result, update text
 function updateScore(playerChoice) {
-    console.log(playerChoice, computerChoice);
     if (playerChoice === computerChoice) {
         resultText.textContent = "It's a tie."
     } else {
